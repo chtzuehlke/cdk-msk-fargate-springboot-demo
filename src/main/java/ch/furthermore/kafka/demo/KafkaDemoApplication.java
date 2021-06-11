@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,14 +40,14 @@ public class KafkaDemoApplication implements CommandLineRunner {
 	private KafkaTemplate<String, String> kafkaTemplate;
 
 	@Bean
-    public NewTopic topic() {
+    public NewTopic topic(@Value("${TopicI.replicas}") int replicas) {
         return TopicBuilder.name(TOPIC_NAME)
             .partitions(10)
-            .replicas(1) // local: only one broker available, cloud: 2 brokers are available
+            .replicas(replicas) 
             .build();
     }
 	
-	@KafkaListener(topics = TOPIC_NAME, id = "#{T(java.util.UUID).randomUUID().toString()}", groupId = "GroupB" ) 
+	@KafkaListener(topics = TOPIC_NAME, id = "#{T(java.util.UUID).randomUUID().toString()}", groupId = "GroupB") 
     public void processMessage(ConsumerRecord<String, String> record, String content) { 
         log.info("Received: partition={}, offset={}, content={}", String.format("%4s", record.partition()), String.format("%4s", record.offset()), content); 
     }

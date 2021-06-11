@@ -102,7 +102,10 @@ public class FargateStack extends Stack {
 			.portMappings(Arrays.asList(PortMapping.builder()
 				.containerPort(8080)
 				.build()))
-			.environment(Map.of("SPRING_KAFKA_BOOTSTRAP-SERVERS", kafkaCluster.getBootstrapBrokers())) 
+			.environment(Map.of(
+					"SPRING_KAFKA_BOOTSTRAP-SERVERS", kafkaCluster.getBootstrapBrokers(),
+					"TopicI.replicas", "2"
+					)) 
 			.logging(LogDriver.awsLogs(AwsLogDriverProps.builder()
 				.streamPrefix("kafkademo")
 				.build()))

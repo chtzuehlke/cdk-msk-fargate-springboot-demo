@@ -28,6 +28,7 @@ services:
       - kafka
     environment:
       SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:9092
+      TopicI.replicas: 1
 
   demo2:
     image: furthermore/kafkademo
@@ -35,3 +36,4 @@ services:
       - kafka
     environment:
       SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:9092
+      TopicI.replicas: 1
