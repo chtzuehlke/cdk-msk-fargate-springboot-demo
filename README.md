@@ -1,6 +1,8 @@
 # Hello world: CDK & MSK & SpringBoot @ ECS Fargate
 
-Dependencies:
+Disclaimer: not ready for production!
+
+## Dependencies
 
 * Linux-like OS (macOS)
 * Ruby installed
@@ -9,8 +11,17 @@ Dependencies:
 * CDK installed
 * AWS CLI installed and configured (AWS_PROFILE & AWS_DEFAULT_REGION set)
 
-Howto:
+## Step 1
 
     rake cdkdeployecr
     rake dockerpush
     rake cdkdeployfargate
+
+## Step 2
+
+Watch the CloudWatch logs of both service tasks
+
+## Step 3
+
+    rake deletefargate
+    rake deleteecr
